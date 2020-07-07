@@ -11,8 +11,6 @@ const Store = () => {
     dispatch(loadRequest());
   }, [dispatch]);
 
-  console.log(clients, products);
-
   return (
     <div>
       {store.loading ? (
@@ -23,13 +21,13 @@ const Store = () => {
           {store.data.id + " - " + store.data.name}
         </p>
       )}
-      {/* {clients.loading ? (
+      {clients.loading ? (
         <p style={{ color: "red" }}> Carregando</p>
       ) : (
         <p>
           <strong>Clients:</strong>
-          {clients.data.clients.map((client) => (
-            <span>{client.name + " "}</span>
+          {clients.data.map((client) => (
+            <span key={client.name}>{client.name + " "}</span>
           ))}
         </p>
       )}
@@ -38,11 +36,11 @@ const Store = () => {
       ) : (
         <p>
           <strong>Products:</strong>
-          {products.data.products.map((product) => (
-            <span>{product.name + " "}</span>
+          {products.data.map((product) => (
+            <span key={product.name}>{product.name + ", "}</span>
           ))}
         </p>
-      )} */}
+      )}
     </div>
   );
 };

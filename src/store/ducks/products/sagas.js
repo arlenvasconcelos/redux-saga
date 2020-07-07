@@ -1,5 +1,5 @@
 import { call, put, select, take } from "redux-saga/effects";
-import { getClients, getStore, getProducts } from "../../../service/api";
+import { getProducts } from "../../../service/api";
 
 import { Types as StoreTypes } from "../store/store";
 
@@ -13,11 +13,7 @@ export function* loadProducts() {
 
     const store = yield select(getStoresFromState);
 
-    console.log(store);
-
     const response = yield call(getProducts, store);
-
-    console.log(response);
 
     yield put(loadSuccess(response));
   } catch (err) {
