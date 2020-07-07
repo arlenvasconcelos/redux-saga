@@ -1,7 +1,11 @@
 import { combineReducers } from "redux";
 
-import stores from "./stores/stores";
+import store from "./store/store";
+import products from "./products/products";
+import clients from "./clients/clients";
 
 export default combineReducers({
-  stores,
+  store,
+  products,
+  clients,
 });

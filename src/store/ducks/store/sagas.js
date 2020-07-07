@@ -1,7 +1,7 @@
 import { call, put, select, take } from "redux-saga/effects";
-import { getClients, getStore, getProducts } from "../../../service/api";
+import { getStore } from "../../../service/api";
 
-import { loadSuccess, loadFailure } from "./stores";
+import { loadSuccess, loadFailure } from "./store";
 
 export const getStoresFromState = (state) => state.stores;
 
