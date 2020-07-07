@@ -3,12 +3,14 @@ import { getClients } from "../../../service/api";
 
 import { Types as StoreTypes } from "../store/store";
 
-import { loadSuccess, loadFailure } from "./clients";
+import { loadSuccess, loadFailure, loadRequest } from "./clients";
 
 export const getStoresFromState = (state) => state.store.data;
 
 export function* loadClients() {
   try {
+    yield put(loadRequest());
+
     yield take(StoreTypes.LOAD_SUCCESS);
 
     const store = yield select(getStoresFromState);
