@@ -2,7 +2,7 @@
  * Action Types
  */
 
-const Types = {
+export const Types = {
   LOAD_REQUEST: "store/LOAD_REQUEST",
   LOAD_SUCCESS: "store/LOAD_SUCCESS",
   LOAD_FAILURE: "store/LOAD_FAILURE",

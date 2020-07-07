@@ -1,52 +1,18 @@
 import { call, put, select, take } from "redux-saga/effects";
-import {} from "../../../service/api";
+import { getClients, getStore, getProducts } from "../../../service/api";
 
-export const getUserFromState = (state) => state.user;
+import { loadSuccess, loadFailure } from "./stores";
 
-export function* loadDashboardNonSequencedNonBlocking() {
+export const getStoresFromState = (state) => state.stores;
+
+export function* loadStore() {
   try {
-    //Wait for the user to be loaded
-    yield take("FETCH_USER_SUCCESS");
+    const response = yield call(getStore);
 
-    //Take the user info from the store
-    const user = yield select(getUserFromState);
+    console.log(response);
 
-    //Get Departure information
-    const departure = yield call(loadDeparture, user);
-
-    //Update the UI
-    yield put({ type: "FETCH_DASHBOARD3_SUCCESS", payload: { departure } });
-
-    //trigger actions for Forecast and Flight to start...
-    //We can pass and object into the put statement
-    yield put({ type: "FETCH_DEPARTURE3_SUCCESS", departure });
-  } catch (error) {
-    yield put({ type: "FETCH_FAILED", error: error.message });
-  }
-}
-
-export function* isolatedFlight() {
-  try {
-    /* departure will take the value of the object passed by the put*/
-    const departure = yield take("FETCH_DEPARTURE3_SUCCESS");
-
-    //Flight can be called unsequenced /* BUT NON BLOCKING VS FORECAST*/
-    const flight = yield call(loadFlight, departure.flightID);
-    //Tell the store we are ready to be displayed
-    yield put({ type: "FETCH_DASHBOARD3_SUCCESS", payload: { flight } });
-  } catch (error) {
-    yield put({ type: "FETCH_FAILED", error: error.message });
-  }
-}
-
-export function* isolatedForecast() {
-  try {
-    /* departure will take the value of the object passed by the put*/
-    const departure = yield take("FETCH_DEPARTURE3_SUCCESS");
-
-    const forecast = yield call(loadForecast, departure.date);
-    yield put({ type: "FETCH_DASHBOARD3_SUCCESS", payload: { forecast } });
-  } catch (error) {
-    yield put({ type: "FETCH_FAILED", error: error.message });
+    yield put(loadSuccess(response));
+  } catch (err) {
+    yield put(loadFailure());
   }
 }
